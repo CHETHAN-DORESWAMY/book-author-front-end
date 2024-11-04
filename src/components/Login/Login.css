@@ -1,0 +1,26 @@
+/* Login.css */
+.login-container {
+  background-color: #f7f7f9; /* Light background color for the entire page */
+  padding: 2rem;
+  max-width: 800px; /* Space around the container */
+}
+
+.shadow {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow effect for the form */
+}
+
+h2 {
+  color: #007bff; /* Bootstrap primary color */
+}
+
+.text-center {
+  color: #6c757d; /* Slightly muted color for links */
+}
+
+.text-center a {
+  color: #007bff; /* Link color matching primary theme */
+}
+
+.text-center a:hover {
+  text-decoration: underline; /* Underline on hover */
+}
