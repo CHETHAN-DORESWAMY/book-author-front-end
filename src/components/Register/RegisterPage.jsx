@@ -31,15 +31,15 @@ function Register() {
           body: JSON.stringify({ username, password }),
         });
 
-        if (!response.ok) {
-          const errorData = response.json();
-          throw new Error(errorData.message || "Registration failed");
-        } else {
-          setSubmitted(true);
-          // Redirect to login page after successful registration
-          console.log(response.json());
-          history("/login");
-        }
+        // if (!response.ok) {
+        //   const errorData = await response.json();
+        //   throw new Error("Registration failed");
+        // }
+
+        setSubmitted(true);
+        // Redirect to login page after successful registration
+        console.log("user created successfully");
+        history("/login");
 
         // Change to your login page route
       } catch (err) {

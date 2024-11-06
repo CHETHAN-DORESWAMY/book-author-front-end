@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap";
 import "./Login.css"; // Optional: for custom styles
 import { useNavigate } from "react-router-dom";
@@ -10,19 +10,44 @@ export default function LoginPage() {
   const [submitted, setSubmitted] = useState(false);
   const history = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
+
+    // Validate input fields
     if (!username || !password) {
       setError("All fields are required");
       return;
     }
 
-    // Simulate login (replace with your actual authentication logic)
-    history("/admin");
+    const baseUrl = "http://localhost:8222/api/auth/login"; // Adjust the URL as needed
 
-    // Simulate successful login and redirect
-    // You can implement your actual login logic here.
-    // history("/dashboard"); // Uncomment and use if you have a redirect after successful login
+    try {
+      const response = await fetch(baseUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password,
+        }),
+      });
+
+      const data = await response.json(); // Parse response as JSON
+      console.log(data);
+      if (response.ok) {
+        const token = data.token; // Access the token from the JSON object
+        console.log("Login successful, token:", token);
+        // Save the token or use it for further requests
+        localStorage.setItem("token", token);
+        history("/admin");
+      } else {
+        throw new Error("Login Failed"); // Handle error messages returned from the backend
+      }
+    } catch (error) {
+      // console.error("Error:", error.message);
+      setError(error.message); // Display error in the UI
+    }
   };
 
   return (
